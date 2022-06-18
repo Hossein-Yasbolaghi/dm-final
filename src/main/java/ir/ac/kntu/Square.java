@@ -1,5 +1,11 @@
 package ir.ac.kntu;
 
+/**
+ * @author Hossein Yasbolaghi
+ * <p>
+ * A class that represents a Square with specific row index and, column index and content in A Board
+ * </p>
+ */
 public class Square {
 
     private int rowIndex;
@@ -12,14 +18,6 @@ public class Square {
         this.rowIndex = rowIndex;
         this.columnIndex = columnIndex;
         this.content = content;
-    }
-
-    public int getRowIndex() {
-        return rowIndex;
-    }
-
-    public int getColumnIndex() {
-        return columnIndex;
     }
 
     public String getContent() {
