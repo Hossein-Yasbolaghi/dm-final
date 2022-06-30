@@ -85,6 +85,43 @@ public class Main {
 
 
 
+    public static void starManhattanSquare (Board board){
+
+        Square[][] elements1thCopy = board.getElements();
+        Square[][] elements2endCopy = board.getElements();
+
+
+        for(int i=0; i<elements1thCopy.length ; i++){
+            for(int t=0 ; t<elements1thCopy[0].length ; t++){
+
+
+                if(elements2endCopy[i][t].getContent().equals("*")){
+
+                    if(i+1<elements1thCopy.length && !elements1thCopy[i+1][t].getContent().equals("#")){
+                        elements1thCopy[i+1][t].setContent("*");
+                    }
+                    if(t+1<elements1thCopy[0].length && !elements1thCopy[i][t+1].getContent().equals("#")){
+                        elements1thCopy[i][t+1].setContent("*");
+                    }
+                    if(0<=i-1 && !elements1thCopy[i-1][t].getContent().equals("#")){
+                        elements1thCopy[i-1][t].setContent("*");
+                    }
+                    if(0<=t-1 && !elements1thCopy[i][t-1].getContent().equals("#")){
+                        elements1thCopy[i][t-1].setContent("*");
+                    }
+
+
+                }
+            }
+        }
+
+        board.setElements(elements1thCopy);
+
+    }
+
+
+
+
 
 
 
