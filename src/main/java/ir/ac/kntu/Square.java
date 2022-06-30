@@ -28,7 +28,4 @@ public class Square {
         this.content = content;
     }
 
-    public int getManhattanDistance(Square other) {
-        return Math.abs(this.rowIndex - other.rowIndex) + Math.abs(this.columnIndex - other.columnIndex);
-    }
 }

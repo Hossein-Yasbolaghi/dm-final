@@ -20,7 +20,6 @@ public class Main {
             System.out.println("Wrong input entered!");
         }
 
-        System.out.println(getTurns(board));
     }
 
     /**
@@ -71,74 +70,10 @@ public class Main {
         return str.equals(".") || str.equals("#") || str.equals("*");
     }
 
-    /**
-     * Calculates the minimum number of turns to feel a specific Board and feel that Board
-     *
-     * @param board A Board that method works on it.
-     * @return An Integer that represents the minimum number of turns to feel a specific Board.
-     */
-    private static int getTurns(Board board) {
-        int turns = 0;
-        ArrayList<Square> squaresCanFeelInThisTurn;
-        while (true) {
-            squaresCanFeelInThisTurn = getSquaresCanFeel(board);
 
-            if (squaresCanFeelInThisTurn.size() == 0) {
-                break;
-            } else {
-                turns++;
-            }
 
-            for (Square square : squaresCanFeelInThisTurn) {
-                square.setContent("*");
-            }
-        }
 
-        return turns;
-    }
 
-    /**
-     * Search's a specific Board to find some squares of it
-     *
-     * @param board A Board that this method search on it for specific Squares.
-     * @return An ArrayList of Squares that have .(dot) content and can feel in this turn.
-     */
-    private static ArrayList<Square> getSquaresCanFeel(Board board) {
-        ArrayList<Square> squaresCanFeel = new ArrayList<>();
-        for (Square[] squares : board.getElements()) {
-            for (Square square : squares) {
-                if (square.getContent().equals("*")) {
-                    squaresCanFeel.addAll(getManhattanSquares(board.getElements(), square));
-                }
-            }
-        }
 
-        return squaresCanFeel;
-    }
-
-    /**
-     * Search's a specific Board to find some squares of it
-     *
-     * @param board  A Board that this method search on it for specific Squares.
-     * @param square A specific Square in the board.
-     * @return An ArrayList of Squares that satisfy two conditions,
-     * 1) The Manhattan distance of them with specific Square be 1,
-     * 2) The content of Squares that satisfy first condition be .(dot).
-     */
-    public static ArrayList<Square> getManhattanSquares(Square[][] board, Square square) {
-        ArrayList<Square> manhattanSquares = new ArrayList<>();
-        for (Square[] squares : board) {
-            for (int j = 0; j < board[0].length; j++) {
-                if (!squares[j].getContent().equals(".")) {
-                    continue;
-                }
-                if (square.getManhattanDistance(squares[j]) == 1) {
-                    manhattanSquares.add(squares[j]);
-                }
-            }
-        }
-
-        return manhattanSquares;
-    }
 
 }
