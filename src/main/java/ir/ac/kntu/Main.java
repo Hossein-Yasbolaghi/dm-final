@@ -1,6 +1,5 @@
 package ir.ac.kntu;
 
-import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -69,6 +68,20 @@ public class Main {
     public static boolean isValidContent(String str) {
         return str.equals(".") || str.equals("#") || str.equals("*");
     }
+
+
+    //check the existence of a point
+    public static boolean pointExistence (Board board){
+        for (Square[] elements : board.getElements()){
+            for (Square current  : elements){
+                if (current.getContent().equals(".")){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
 
 
 
