@@ -10,6 +10,7 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         Board board = new Board();
+        int turn = 0;
 
         readDimensions(scanner, board);
 
@@ -18,6 +19,22 @@ public class Main {
         } catch (InputMismatchException ex) {
             System.out.println("Wrong input entered!");
         }
+
+        while (pointExistence(board)){
+            starManhattanSquare(board);
+            turn++;
+
+//            Square[][] elements = board.getElements();
+//            for (Square[] currents : elements){
+//                for (Square current : currents){
+//                    System.out.print(current.getContent());
+//                }
+//            }
+//            System.out.println();
+//            System.out.println("---");
+        }
+
+        System.out.println(turn);
 
     }
 
