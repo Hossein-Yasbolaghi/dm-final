@@ -23,22 +23,24 @@ public class Main {
         while (pointExistence(board)) {
             starManhattanSquares(board);
             turn++;
-            printTheBoard(board);
+//            printTheBoard(board);
         }
 
         System.out.println(turn);
     }
 
-    private static void printTheBoard(Board board) {
-        System.out.println();
-        for (Square[] squares : board.getElements()) {
-            for (Square square : squares) {
-                System.out.print(square.getContent());
-            }
-            System.out.println();
-        }
-        System.out.println("---");
-    }
+//    private static void printTheBoard(Board board) {
+//        System.out.println();
+//        for (Square[] squares : board.getElements()) {
+//            for (Square square : squares) {
+//                System.out.print(square.getContent());
+//            }
+//            System.out.println();
+//        }
+//        for(int i=0;i<board.getColumns();i++) {
+//            System.out.print("-");
+//        }
+//    }
 
     /**
      * Reads dimensions of board
@@ -137,7 +139,7 @@ public class Main {
         if ((i + 1) < elements.length && elements[i + 1][j].getContent().equals("*")) {
             return true;
         }
-        if ((j - 1) < elements[0].length && elements[i][j - 1].getContent().equals("*")) {
+        if ((j - 1) >=0 && elements[i][j - 1].getContent().equals("*")) {
             return true;
         }
 
