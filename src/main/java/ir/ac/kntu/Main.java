@@ -20,22 +20,24 @@ public class Main {
             System.out.println("Wrong input entered!");
         }
 
-        while (pointExistence(board)){
-            starManhattanSquare(board);
+        while (pointExistence(board)) {
+            starManhattanSquares(board);
             turn++;
-
-//            Square[][] elements = board.getElements();
-//            for (Square[] currents : elements){
-//                for (Square current : currents){
-//                    System.out.print(current.getContent());
-//                }
-//            }
-//            System.out.println();
-//            System.out.println("---");
+            printTheBoard(board);
         }
 
         System.out.println(turn);
+    }
 
+    private static void printTheBoard(Board board) {
+        System.out.println();
+        for (Square[] squares : board.getElements()) {
+            for (Square square : squares) {
+                System.out.print(square.getContent());
+            }
+            System.out.println();
+        }
+        System.out.println("---");
     }
 
     /**
@@ -49,6 +51,7 @@ public class Main {
             board.setRows(scanner.nextInt());
             board.setColumns(scanner.nextInt());
         } catch (InputMismatchException ex) {
+            scanner.nextLine();
             System.out.println("Wrong input entered!");
             readDimensions(scanner, board);
         }
@@ -86,61 +89,58 @@ public class Main {
         return str.equals(".") || str.equals("#") || str.equals("*");
     }
 
-
-    //check the existence of a point
-    public static boolean pointExistence (Board board){
-        for (Square[] elements : board.getElements()){
-            for (Square current  : elements){
-                if (current.getContent().equals(".")){
+    /**
+     * Check the existence of a point
+     *
+     * @param board A board that we search on it
+     * @return true if there is a point in board, otherwise returns false
+     */
+    public static boolean pointExistence(Board board) {
+        for (Square[] elements : board.getElements()) {
+            for (Square square : elements) {
+                if (square.getContent().equals(".")) {
                     return true;
                 }
             }
         }
+
         return false;
     }
 
+    public static void starManhattanSquares(Board board) {
+        Square[][] finalSquare = new Square[board.getRows()][board.getColumns()];
 
-
-
-    public static void starManhattanSquare (Board board){
-
-        Square[][] elements1thCopy = board.getElements();
-        Square[][] elements2endCopy = board.getElements();
-
-
-        for(int i=0; i<elements1thCopy.length ; i++){
-            for(int t=0 ; t<elements1thCopy[0].length ; t++){
-
-
-                if(elements2endCopy[i][t].getContent().equals("*")){
-
-                    if(i+1<elements1thCopy.length && !elements1thCopy[i+1][t].getContent().equals("#")){
-                        elements1thCopy[i+1][t].setContent("*");
-                    }
-                    if(t+1<elements1thCopy[0].length && !elements1thCopy[i][t+1].getContent().equals("#")){
-                        elements1thCopy[i][t+1].setContent("*");
-                    }
-                    if(0<=i-1 && !elements1thCopy[i-1][t].getContent().equals("#")){
-                        elements1thCopy[i-1][t].setContent("*");
-                    }
-                    if(0<=t-1 && !elements1thCopy[i][t-1].getContent().equals("#")){
-                        elements1thCopy[i][t-1].setContent("*");
-                    }
-
-
+        for (int i = 0; i < board.getRows(); i++) {
+            for (int j = 0; j < board.getColumns(); j++) {
+                if (board.getElements()[i][j].getContent().equals(".") && checkManhattanSquares(board.getElements(), i, j)) {
+                    finalSquare[i][j] = new Square(i, j, "*");
+                } else {
+                    finalSquare[i][j] = board.getElements()[i][j];
                 }
             }
         }
 
-        board.setElements(elements1thCopy);
-
+        board.setElements(finalSquare);
     }
 
+    /**
+     * Checks all four manhattan squares of specified square with i and j index in the elements array
+     * @param elements An 2D array that function search's on it
+     * @param i row index of specified square in elements
+     * @param j column index of specified square in elements
+     * @return true if there is a manhattan square in the elements with content *(star).
+     */
+    public static boolean checkManhattanSquares(Square[][] elements, int i, int j) {
+        if ((i - 1) >= 0 && elements[i - 1][j].getContent().equals("*")) {
+            return true;
+        }
+        if ((i + 1) < elements.length && elements[i + 1][j].getContent().equals("*")) {
+            return true;
+        }
+        if ((j - 1) < elements[0].length && elements[i][j - 1].getContent().equals("*")) {
+            return true;
+        }
 
-
-
-
-
-
-
+        return (j + 1) < elements[0].length && elements[i][j + 1].getContent().equals("*");
+    }
 }
